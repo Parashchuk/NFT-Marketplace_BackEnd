@@ -1,3 +1,5 @@
+# NodeModules
+node_modules/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
