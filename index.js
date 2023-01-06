@@ -2,28 +2,41 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-mongoose.set('strictQuery', true);
+import checkAuth from './utils/checkAuth.js';
+import { registerValidate, loginValidate } from './validations/auth.js';
+import * as authController from './controllers/authController.js';
+import * as usersController from './controllers/usersController.js';
+import * as collectionsController from './controllers/collectionsController.js';
+
+mongoose.set('strictQuery', false);
 mongoose
   .connect(
-    'mongodb+srv://admin:1q2w3e4r@petcluster.iafisyb.mongodb.net/?retryWrites=true&w=majority'
+    'mongodb+srv://admin:1q2w3e4r@nftmarketplace.iafisyb.mongodb.net/NFT_Marketplace?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+    }
   )
-  .then(() => console.log('MongoDB was connected successfully'))
+  .then(() => console.log('Connected to MongoDB successfully'))
   .catch((err) => console.log(err));
 
-const PORT = process.env.PORT || 4444;
 const app = express();
-const corsOptions = {
-  origin: '',
-  optionsSuccessStatus: 200,
-};
+const PORT = process.env.PORT || 4000;
 
-app.use(express.json);
 app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
-  res.send({ message: 'success' });
+  res.status(200).send({ message: 'success' });
 });
 
-app.listen(PORT, () => {
-  console.log('Server was started on port ' + PORT);
-});
+app.post('/auth/register', registerValidate, authController.register);
+app.post('/auth/login', loginValidate, authController.login);
+app.get('/auth/me', checkAuth, authController.getMe);
+
+app.get('/users', usersController.getAll);
+app.get('/users:id', usersController.getOne);
+
+app.get('/collections', collectionsController.getAll);
+
+app.listen(PORT, () => console.log('Servet started on port ' + PORT));
