@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use('/static', express.static('public'));
 
 app.get('/', (req, res) => {
   res.status(200).send({ message: 'success' });
