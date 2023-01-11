@@ -21,4 +21,3 @@ export const getAll = (req, res) => {
     res.status(400).json({ message: 'Unsuccessful try to load Users' });
   }
 };
-export const getOne = (req, res) => {};

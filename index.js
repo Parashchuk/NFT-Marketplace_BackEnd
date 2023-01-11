@@ -30,13 +30,16 @@ app.get('/', (req, res) => {
   res.status(200).send({ message: 'success' });
 });
 
+//Auth
 app.post('/auth/register', registerValidate, authController.register);
 app.post('/auth/login', loginValidate, authController.login);
 app.get('/auth/me', checkAuth, authController.getMe);
 
+//Users
 app.get('/users', usersController.getAll);
-app.get('/users:id', usersController.getOne);
 
+//Collections
 app.get('/collections', collectionsController.getAll);
+app.post('/collections', checkAuth, collectionsController.create);
 
 app.listen(PORT, () => console.log('Servet started on port ' + PORT));
