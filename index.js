@@ -11,10 +11,7 @@ import * as collectionsController from './controllers/collectionsController.js';
 mongoose.set('strictQuery', false);
 mongoose
   .connect(
-    'mongodb+srv://admin:1q2w3e4r@nftmarketplace.iafisyb.mongodb.net/NFT_Marketplace?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-    }
+    'mongodb+srv://admin:1q2w3e4r@nftmarketplace.iafisyb.mongodb.net/NFT_Marketplace?retryWrites=true&w=majority'
   )
   .then(() => console.log('Connected to MongoDB successfully'))
   .catch((err) => console.log(err));
