@@ -19,8 +19,7 @@ mongoose
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-////////////////////////////////////////////ADD to cors only github
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3000', 'https://parashchuk.github.io'] }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
@@ -31,7 +30,7 @@ app.get('/', (req, res) => {
 //Auth
 app.post('/auth/register', registerValidate, authController.register);
 app.post('/auth/login', loginValidate, authController.login);
-app.get('/auth/me', checkAuth, authController.getMe);
+app.post('/auth/me', checkAuth, authController.getMe);
 
 //Users
 app.get('/users', usersController.getAll);

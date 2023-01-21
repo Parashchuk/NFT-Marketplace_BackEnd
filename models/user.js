@@ -17,11 +17,13 @@ const User = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: null,
+    default:
+      'https://marketplace-server-4tlp.onrender.com/upolads/ee11cbb19052e40b07aac0ca060c23ee.jpg',
   },
-  hedaerImage: {
+  headerImage: {
     type: String,
-    default: null,
+    default:
+      'https://marketplace-server-4tlp.onrender.com/upolads/f151ff5e6f961d6d829aef2e9044434a.jpg',
   },
   totalSales: {
     type: Number,
@@ -39,9 +41,10 @@ const User = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  inventory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Collection' }],
   bio: {
     type: String,
-    default: '',
+    default: 'The user did not write here anything yet',
   },
 });
 
