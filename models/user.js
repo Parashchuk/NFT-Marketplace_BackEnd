@@ -18,12 +18,12 @@ const User = new mongoose.Schema({
   avatar: {
     type: String,
     default:
-      'https://marketplace-server-4tlp.onrender.com/upolads/ee11cbb19052e40b07aac0ca060c23ee.jpg',
+      'https://marketplace-server-4tlp.onrender.com/uploads/ee11cbb19052e40b07aac0ca060c23ee.jpg',
   },
   headerImage: {
     type: String,
     default:
-      'https://marketplace-server-4tlp.onrender.com/upolads/f151ff5e6f961d6d829aef2e9044434a.jpg',
+      'https://marketplace-server-4tlp.onrender.com/uploads/f151ff5e6f961d6d829aef2e9044434a.jpg',
   },
   totalSales: {
     type: Number,
