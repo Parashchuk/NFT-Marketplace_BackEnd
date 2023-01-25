@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bidPost from './_bidPostSchema.js';
 
 const Collection = new mongoose.Schema(
   {
@@ -23,6 +24,7 @@ const Collection = new mongoose.Schema(
       ref: 'User',
       require: true,
     },
+    bidHistory: [bidPost],
   },
   {
     timestamps: true,

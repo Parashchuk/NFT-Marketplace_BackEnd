@@ -26,6 +26,7 @@ export const create = (req, res) => {
     const collection = new CollectionModel({
       name: req.body.name,
       author: req.userId,
+      tags: req.body.tags,
     });
 
     collection.save();

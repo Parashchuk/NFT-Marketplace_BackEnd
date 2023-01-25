@@ -7,6 +7,9 @@ import { registerValidate, loginValidate } from './validations/auth.js';
 import * as authController from './controllers/authController.js';
 import * as usersController from './controllers/usersController.js';
 import * as collectionsController from './controllers/collectionsController.js';
+import * as bidController from './controllers/bidController.js';
+
+import CollectionModel from './models/collection.js';
 
 mongoose.set('strictQuery', false);
 mongoose
@@ -38,5 +41,8 @@ app.get('/users', usersController.getAll);
 //Collections
 app.get('/collections', collectionsController.getAll);
 app.post('/collections', checkAuth, collectionsController.create);
+
+//Bid
+app.patch('/bid', checkAuth, bidController.create);
 
 app.listen(PORT, () => console.log('Servet started on port ' + PORT));

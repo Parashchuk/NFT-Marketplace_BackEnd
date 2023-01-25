@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bidPost from './_bidPostSchema.js';
 
 const Item = new mongoose.Schema({
   name: {
@@ -13,10 +14,7 @@ const Item = new mongoose.Schema({
     type: String,
     require: true,
   },
-  bid: {
-    type: String,
-    require: true,
-  },
+  bidHistory: [bidPost],
   status: {
     type: String,
     default: 'created',
