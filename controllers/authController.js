@@ -70,21 +70,11 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.userId).populate({
-      path: 'inventory',
-      populate: {
-        path: 'collections',
-      },
-      populate: {
-        path: 'nfts',
-      },
-    });
+    const user = await UserModel.findById(req.userId).select('-passwordHash');
     if (!user) return res.status(404).json({ messages: 'Not found' });
 
-    const { passwordHash, ...userData } = user._doc;
-    res.status(200).json({ ...userData });
+    res.status(200).json(user);
   } catch (err) {
-    console.log(err);
-    res.status(403);
+    res.status(500).json({ message: 'Unsuccsessful try to get data' });
   }
 };
