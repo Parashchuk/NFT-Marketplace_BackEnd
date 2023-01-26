@@ -41,7 +41,7 @@ export const getInventory = async (req, res) => {
           populate: {
             path: 'collections',
             populate: {
-              path: 'images',
+              path: 'images author',
             },
           },
         })
@@ -49,21 +49,22 @@ export const getInventory = async (req, res) => {
           path: 'inventory',
           populate: {
             path: 'nfts',
+            populate: {
+              path: 'author',
+            },
           },
         })
         .select('inventory');
       if (!user) return res.status(404).json({ message: 'User you try to find does not exist' });
 
       if (req.query.sort) {
-        if (req.query.sort === 'created') {
-          res.status(200).json(user.inventory.nfts.filter((item) => item.status === 'created'));
-        } else if (req.query.sort === 'owned') {
-          res.status(200).json(user.inventory.nfts.filter((item) => item.status === 'owned'));
+        if (req.query.sort === 'nfts') {
+          res.status(200).json(user.inventory.nfts);
         } else if (req.query.sort === 'collections') {
           res.status(200).json(user.inventory.collections);
         }
       } else {
-        res.status(200).json(user.inventory.nfts.filter((item) => item.status === 'created'));
+        res.status(200).json(user.inventory.nfts);
       }
     };
 

@@ -15,13 +15,10 @@ const NFTCard = new mongoose.Schema({
     require: true,
   },
   bidHistory: [bidPost],
-  status: {
-    type: String,
-    default: 'created',
-  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     require: true,
+    ref: 'User',
   },
 });
 
