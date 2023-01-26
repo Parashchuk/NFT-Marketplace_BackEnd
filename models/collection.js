@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bidPost from './_bidPostSchema.js';
+import bidPost from './_bidPost.js';
 
 const Collection = new mongoose.Schema(
   {
@@ -7,10 +7,7 @@ const Collection = new mongoose.Schema(
       type: String,
       require: true,
     },
-    images: {
-      type: Array,
-      default: [],
-    },
+    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NFTCard' }],
     ratings: {
       type: Number,
       default: 0,

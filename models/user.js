@@ -41,7 +41,16 @@ const User = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  inventory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Collection' }],
+  inventory: {
+    type: {
+      collections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Collection' }],
+      nfts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NFTCard' }],
+    },
+    default: {
+      collections: [],
+      nfts: [],
+    },
+  },
   bio: {
     type: String,
     default: 'The user did not write here anything yet',

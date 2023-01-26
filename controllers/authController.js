@@ -70,7 +70,15 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.userId).populate('inventory');
+    const user = await UserModel.findById(req.userId).populate({
+      path: 'inventory',
+      populate: {
+        path: 'collections',
+      },
+      populate: {
+        path: 'nfts',
+      },
+    });
     if (!user) return res.status(404).json({ messages: 'Not found' });
 
     const { passwordHash, ...userData } = user._doc;

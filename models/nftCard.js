@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
-import bidPost from './_bidPostSchema.js';
+import bidPost from './_bidPost.js';
 
-const Item = new mongoose.Schema({
+const NFTCard = new mongoose.Schema({
   name: {
     type: String,
     require: true,
   },
-  itemImage: {
+  picture: {
     type: String,
     require: true,
   },
@@ -25,4 +25,4 @@ const Item = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('Item', Item);
+export default mongoose.model('NFTCard', NFTCard);

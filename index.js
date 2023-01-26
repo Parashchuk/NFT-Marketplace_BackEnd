@@ -7,9 +7,7 @@ import { registerValidate, loginValidate } from './validations/auth.js';
 import * as authController from './controllers/authController.js';
 import * as usersController from './controllers/usersController.js';
 import * as collectionsController from './controllers/collectionsController.js';
-import * as bidController from './controllers/bidController.js';
-
-import CollectionModel from './models/collection.js';
+import * as nftCardController from './controllers/nftCardController.js';
 
 mongoose.set('strictQuery', false);
 mongoose
@@ -37,12 +35,15 @@ app.post('/auth/me', checkAuth, authController.getMe);
 
 //Users
 app.get('/users', usersController.getAll);
+app.get('/users/:id', usersController.getOne);
 
 //Collections
 app.get('/collections', collectionsController.getAll);
 app.post('/collections', checkAuth, collectionsController.create);
+app.patch('/bid', checkAuth, collectionsController.createBid);
 
-//Bid
-app.patch('/bid', checkAuth, bidController.create);
+//NFT_Card
+app.post('/nft', checkAuth, nftCardController.create);
+app.patch('/bid', checkAuth, nftCardController.createBid);
 
-app.listen(PORT, () => console.log('Servet started on port ' + PORT));
+app.listen(PORT, () => console.log('Server started on port ' + PORT));
