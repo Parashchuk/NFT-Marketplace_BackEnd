@@ -23,8 +23,11 @@ mongoose
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+//Use cors with origins production and development
 app.use(cors({ origin: ['http://localhost:3000', 'https://parashchuk.github.io'] }));
+//Allow express to use json method
 app.use(express.json());
+//Tell to express that here is static folder
 app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {

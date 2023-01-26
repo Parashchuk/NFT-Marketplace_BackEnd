@@ -15,10 +15,11 @@ export async function register(req, res) {
 
     //Validate if username or email is unique
     const isUniqueUsername = await UserModel.findOne({ username });
-    const isUniqueEmail = await UserModel.findOne({ email });
     if (isUniqueUsername) {
       return res.status(400).json({ message: 'The username already taken', field: 'username' });
-    } else if (isUniqueEmail) {
+    }
+    const isUniqueEmail = await UserModel.findOne({ email });
+    if (isUniqueEmail) {
       return res.status(400).json({ message: 'The email already taken', field: 'email' });
     }
 
@@ -50,7 +51,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     // Search user in DB by email
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).select('-passwordHash');
     if (!user) return res.status(400).json({ message: 'Incorrect email or password' });
 
     // Check password
@@ -60,9 +61,7 @@ export const login = async (req, res) => {
     // Return token
     const token = jwt.sign({ _id: user._doc._id }, 'SECRET1q2w3e4r', { expiresIn: '30d' });
 
-    // Return response without passwordHash
-    const { passwordHash, ...userData } = user._doc;
-    res.status(200).json({ ...userData, token });
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: 'Unsuccsessful try to login' });
   }
@@ -70,6 +69,7 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
+    //Fetch user, without passwordHash if he exist or throw error if he don't
     const user = await UserModel.findById(req.userId).select('-passwordHash');
     if (!user) return res.status(404).json({ messages: 'Not found' });
 
