@@ -51,7 +51,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     // Search user in DB by email
-    const user = await UserModel.findOne({ email }).select('-passwordHash');
+    const user = await UserModel.findOne({ email });
     if (!user) return res.status(400).json({ message: 'Incorrect email or password' });
 
     // Check password
@@ -61,7 +61,9 @@ export const login = async (req, res) => {
     // Return token
     const token = jwt.sign({ _id: user._doc._id }, 'SECRET1q2w3e4r', { expiresIn: '30d' });
 
-    res.status(200).json(user);
+    const { passwordHash, ...data } = user._doc;
+
+    res.status(200).json({ ...data, token });
   } catch (err) {
     res.status(500).json({ message: 'Unsuccsessful try to login' });
   }
